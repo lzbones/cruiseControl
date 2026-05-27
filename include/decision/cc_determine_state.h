@@ -1,5 +1,4 @@
-#ifndef CC_DETERMINE_STATE_H_
-#define CC_DETERMINE_STATE_H_
+#pragma once
 
 #include "decision/cc_decision_def.h"
 
@@ -17,4 +16,3 @@ SystemState determineState(SpeedSubstate speedSubstate, SystemSubstate systemSub
 } // namespace decision
 } // namespace cc
 
-#endif // CC_DETERMINE_STATE_H_

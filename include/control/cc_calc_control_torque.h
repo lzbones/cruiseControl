@@ -1,5 +1,4 @@
-#ifndef CC_CALC_CONTROL_TORQUE_H_
-#define CC_CALC_CONTROL_TORQUE_H_
+#pragma once
 
 #include "control/cc_control_def.h"
 
@@ -18,4 +17,3 @@ double calcControlTorque(double Kp, double speedError, const SppvtConfig& config
 } // namespace control
 } // namespace cc
 
-#endif // CC_CALC_CONTROL_TORQUE_H_

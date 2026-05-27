@@ -1,5 +1,4 @@
-#ifndef CC_UPDATE_VIRTUAL_TARGET_H_
-#define CC_UPDATE_VIRTUAL_TARGET_H_
+#pragma once
 
 namespace cc {
 namespace control {
@@ -16,4 +15,3 @@ double updateVirtualTarget(double virtualTarget, double rho, double targetDeviat
 } // namespace control
 } // namespace cc
 
-#endif // CC_UPDATE_VIRTUAL_TARGET_H_

@@ -1,5 +1,4 @@
-#ifndef CC_CHECK_TARGET_CHANGE_H_
-#define CC_CHECK_TARGET_CHANGE_H_
+#pragma once
 
 namespace cc {
 namespace control {
@@ -16,4 +15,3 @@ bool checkTargetChange(double currentAcceleration, double delta, double cooldown
 } // namespace control
 } // namespace cc
 
-#endif // CC_CHECK_TARGET_CHANGE_H_

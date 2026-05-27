@@ -1,5 +1,4 @@
-#ifndef CC_DECISION_DEF_H_
-#define CC_DECISION_DEF_H_
+#pragma once
 
 namespace cc {
 namespace decision {
@@ -113,4 +112,3 @@ struct DecisionOutput {
 } // namespace decision
 } // namespace cc
 
-#endif // CC_DECISION_DEF_H_

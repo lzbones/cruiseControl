@@ -1,5 +1,4 @@
-#ifndef CC_SPPVT_STEP_H_
-#define CC_SPPVT_STEP_H_
+#pragma once
 
 #include "control/cc_control_def.h"
 
@@ -18,4 +17,3 @@ SppvtOutput sppvtStep(const SppvtConfig& config, const SppvtInput& input, SppvtS
 } // namespace control
 } // namespace cc
 
-#endif // CC_SPPVT_STEP_H_

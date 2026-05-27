@@ -1,5 +1,4 @@
-#ifndef CC_MATH_UTILS_H_
-#define CC_MATH_UTILS_H_
+#pragma once
 
 namespace cc {
 namespace math {
@@ -32,4 +31,3 @@ double clampVal(double val, double minVal, double maxVal);
 } // namespace math
 } // namespace cc
 
-#endif // CC_MATH_UTILS_H_

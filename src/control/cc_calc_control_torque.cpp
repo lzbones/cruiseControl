@@ -5,8 +5,9 @@ namespace cc {
 namespace control {
 
 double calcControlTorque(double Kp, double speedError, const SppvtConfig& config) {
-    double rawTorque = Kp * speedError;
-    return cc::math::clampVal(rawTorque, config.minTorque, config.maxTorque);
+    const double rawTorque = Kp * speedError;
+    const double torque = cc::math::clampVal(rawTorque, config.minTorque, config.maxTorque);
+    return torque;
 }
 
 } // namespace control

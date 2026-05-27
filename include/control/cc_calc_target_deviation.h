@@ -1,5 +1,4 @@
-#ifndef CC_CALC_TARGET_DEVIATION_H_
-#define CC_CALC_TARGET_DEVIATION_H_
+#pragma once
 
 namespace cc {
 namespace control {
@@ -15,4 +14,3 @@ double calcTargetDeviation(double targetSpeed, double currentSpeed);
 } // namespace control
 } // namespace cc
 
-#endif // CC_CALC_TARGET_DEVIATION_H_

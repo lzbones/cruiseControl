@@ -1,5 +1,4 @@
-#ifndef CC_CONTROL_DEF_H_
-#define CC_CONTROL_DEF_H_
+#pragma once
 
 namespace cc {
 namespace control {
@@ -50,4 +49,3 @@ struct SppvtOutput {
 } // namespace control
 } // namespace cc
 
-#endif // CC_CONTROL_DEF_H_

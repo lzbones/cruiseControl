@@ -1,5 +1,4 @@
-#ifndef CC_PROCESS_COMMAND_H_
-#define CC_PROCESS_COMMAND_H_
+#pragma once
 
 #include "decision/cc_decision_def.h"
 
@@ -18,4 +17,3 @@ DecisionOutput processCommand(const DecisionInput& input, const DecisionConfig& 
 } // namespace decision
 } // namespace cc
 
-#endif // CC_PROCESS_COMMAND_H_

@@ -4,11 +4,9 @@ namespace cc {
 namespace control {
 
 double limitVirtualTarget(double virtualTarget, double targetSpeed, double maxOffset) {
-    double limitUpper = targetSpeed + maxOffset;
-    if (virtualTarget > limitUpper) {
-        return limitUpper;
-    }
-    return virtualTarget;
+    const double limitUpper = targetSpeed + maxOffset;
+    const double result = (virtualTarget > limitUpper) ? limitUpper : virtualTarget;
+    return result;
 }
 
 } // namespace control

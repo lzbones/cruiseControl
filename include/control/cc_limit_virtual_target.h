@@ -1,5 +1,4 @@
-#ifndef CC_LIMIT_VIRTUAL_TARGET_H_
-#define CC_LIMIT_VIRTUAL_TARGET_H_
+#pragma once
 
 namespace cc {
 namespace control {
@@ -16,4 +15,3 @@ double limitVirtualTarget(double virtualTarget, double targetSpeed, double maxOf
 } // namespace control
 } // namespace cc
 
-#endif // CC_LIMIT_VIRTUAL_TARGET_H_

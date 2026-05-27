@@ -1,5 +1,4 @@
-#ifndef CC_CHECK_SPEED_SUBSTATE_H_
-#define CC_CHECK_SPEED_SUBSTATE_H_
+#pragma once
 
 #include "decision/cc_decision_def.h"
 
@@ -17,4 +16,3 @@ SpeedSubstate checkSpeedSubstate(double currentSpeed, const DecisionConfig& conf
 } // namespace decision
 } // namespace cc
 
-#endif // CC_CHECK_SPEED_SUBSTATE_H_

@@ -4,13 +4,9 @@ namespace cc {
 namespace math {
 
 double clampVal(double val, double minVal, double maxVal) {
-    if (val < minVal) {
-        return minVal;
-    }
-    if (val > maxVal) {
-        return maxVal;
-    }
-    return val;
+    const double temp = (val < minVal) ? minVal : val;
+    const double result = (temp > maxVal) ? maxVal : temp;
+    return result;
 }
 
 } // namespace math

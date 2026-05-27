@@ -4,10 +4,8 @@ namespace cc {
 namespace math {
 
 double calcAcceleration(double currentSpeed, double lastSpeed, double dt) {
-    if (dt <= 1e-6) {
-        return 0.0;
-    }
-    return (currentSpeed - lastSpeed) / dt;
+    const double result = (dt <= 1e-6) ? 0.0 : ((currentSpeed - lastSpeed) / dt);
+    return result;
 }
 
 } // namespace math

@@ -4,13 +4,9 @@ namespace cc {
 namespace decision {
 
 SpeedSubstate checkSpeedSubstate(double currentSpeed, const DecisionConfig& config) {
-    if (currentSpeed < config.minSpeed) {
-        return SPEED_SUBSTATE_LOW;
-    } else if (currentSpeed > config.maxSpeed) {
-        return SPEED_SUBSTATE_HIGH;
-    } else {
-        return SPEED_SUBSTATE_SUITABLE;
-    }
+    const SpeedSubstate result = (currentSpeed < config.minSpeed) ? SPEED_SUBSTATE_LOW :
+                                 ((currentSpeed > config.maxSpeed) ? SPEED_SUBSTATE_HIGH : SPEED_SUBSTATE_SUITABLE);
+    return result;
 }
 
 } // namespace decision

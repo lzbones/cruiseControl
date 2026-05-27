@@ -1,5 +1,4 @@
-#ifndef CC_CHECK_SYSTEM_SUBSTATE_H_
-#define CC_CHECK_SYSTEM_SUBSTATE_H_
+#pragma once
 
 #include "decision/cc_decision_def.h"
 
@@ -18,4 +17,3 @@ SystemSubstate checkSystemSubstate(bool controlActive, bool isThrottlePressed, b
 } // namespace decision
 } // namespace cc
 
-#endif // CC_CHECK_SYSTEM_SUBSTATE_H_
