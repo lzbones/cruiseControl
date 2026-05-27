@@ -19,6 +19,10 @@ set(CC_SOURCES
     src/decision/cc_check_system_substate.cpp
     src/decision/cc_determine_state.cpp
     src/decision/cc_process_command.cpp
+    src/decision/cc_evaluate_decision.cpp
+    src/decision/cc_determine_next_active.cpp
+    src/decision/cc_determine_next_target.cpp
+    src/decision/cc_determine_next_last_target.cpp
     src/control/cc_calc_speed_error.cpp
     src/control/cc_calc_control_torque.cpp
     src/control/cc_check_target_change.cpp
@@ -26,6 +30,13 @@ set(CC_SOURCES
     src/control/cc_update_virtual_target.cpp
     src/control/cc_limit_virtual_target.cpp
     src/control/cc_sppvt_step.cpp
+    src/control/cc_update_cooldown_timer.cpp
+    src/control/cc_determine_next_cooldown_timer.cpp
+    src/control/cc_calc_new_virtual_target.cpp
+    src/control/cc_determine_next_virtual_target.cpp
+    src/control/cc_determine_next_step_index.cpp
+    src/control/cc_determine_torque_command.cpp
+    src/control/cc_determine_triggered.cpp
 )
 
 # 生成静态链接库
