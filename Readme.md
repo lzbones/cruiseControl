@@ -307,7 +307,7 @@ clang++ -std=c++11 -Iinclude src/math/*.cpp src/decision/*.cpp src/control/*.cpp
 ```bash
 ./plot_simulation.py
 ```
-运行后，可以打开 [output/simulation_plot.png](file:///Users/qingxu/Documents/Software/Cpp/cruiseControl/output/simulation_plot.png) 观察车速、虚拟目标在阻力坡度变化下的完美自适应收敛曲线。
+运行后，可以打开 [output/simulation_plot.png](output/simulation_plot.png) 观察车速、虚拟目标在阻力坡度变化下的完美自适应收敛曲线。
 
 ---
 
@@ -359,7 +359,7 @@ clang++ -std=c++11 -Iinclude src/math/*.cpp src/decision/*.cpp src/control/*.cpp
 
 ### 5.2 时序曲线可视化
 
-![定速巡航仿真结果时序曲线](file:///Users/qingxu/Documents/Software/Cpp/cruiseControl/output/simulation_plot.png)
+![定速巡航仿真结果时序曲线](output/simulation_plot.png)
 
 ### 5.3 物理仿真过程分析与 SPPVT 算法表现
 
