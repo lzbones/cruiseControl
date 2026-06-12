@@ -7,9 +7,17 @@ namespace decision {
 
 /**
  * @brief 根据当前车速和阈值判定车速子态 Sv
- * @param currentSpeed 当前实际车速 (m/s)
- * @param config 决策配置参数 (内含 minSpeed/maxSpeed)
- * @return SpeedSubstate 车速子态 (SPEED_SUBSTATE_SUITABLE, SPEED_SUBSTATE_LOW, SPEED_SUBSTATE_HIGH)
+ * 
+ * 模块要素界定：
+ * - 输入 (Input)：
+ *   - currentSpeed: 当前实际车速 (m/s)
+ * - 输出 (Output)：
+ *   - 返回值: SpeedSubstate 车速子态
+ * - 状态 (State)：
+ *   - 无 (无持久化状态)
+ * - 参数 (Param)：
+ *   - config.minSpeed: 最低适控车速
+ *   - config.maxSpeed: 最高适控车速
  */
 SpeedSubstate checkSpeedSubstate(double currentSpeed, const DecisionConfig& config);
 

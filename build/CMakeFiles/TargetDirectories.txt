@@ -1,0 +1,6 @@
+/Users/qingxu/Documents/Software/Cpp/GAASD/cruiseControl/cruiseControlCpp/build/CMakeFiles/cruise_control.dir
+/Users/qingxu/Documents/Software/Cpp/GAASD/cruiseControl/cruiseControlCpp/build/CMakeFiles/test_decision.dir
+/Users/qingxu/Documents/Software/Cpp/GAASD/cruiseControl/cruiseControlCpp/build/CMakeFiles/test_control.dir
+/Users/qingxu/Documents/Software/Cpp/GAASD/cruiseControl/cruiseControlCpp/build/CMakeFiles/test_integration.dir
+/Users/qingxu/Documents/Software/Cpp/GAASD/cruiseControl/cruiseControlCpp/build/CMakeFiles/edit_cache.dir
+/Users/qingxu/Documents/Software/Cpp/GAASD/cruiseControl/cruiseControlCpp/build/CMakeFiles/rebuild_cache.dir

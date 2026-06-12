@@ -1,0 +1,1 @@
+/usr/bin/c++  -arch arm64 -Wl,-search_paths_first -Wl,-headerpad_max_install_names CMakeFiles/test_control.dir/test/test_control.cpp.o -o /Users/qingxu/Documents/Software/Cpp/GAASD/cruiseControl/cruiseControlCpp/bin/test_control  libcruise_control.a

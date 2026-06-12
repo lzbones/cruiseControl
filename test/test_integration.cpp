@@ -78,6 +78,7 @@ int main() {
     decState.targetSpeed = 15.0;        // 预设设定目标速度
     decState.lastTargetSpeed = 15.0;    // 预设历史目标速度，以便激活时可以通过 Resume 恢复至 15.0 m/s
     decState.lowSpeedTimer = 0.0;
+    cc::decision::setDecisionState(decState);
 
     cc::control::SppvtState ctrlState;
     ctrlState.virtualTargetSpeed = 15.0;
@@ -132,18 +133,18 @@ int main() {
         decInput.currentSpeed = currentSpeed;
         decInput.isBrakePressed = false;
         decInput.isThrottlePressed = false;
-        decInput.hasHistoryTarget = (decState.lastTargetSpeed > 0.0);
+        decInput.hasHistoryTarget = (cc::decision::getDecisionState().lastTargetSpeed > 0.0);
         decInput.controlActive = controlActive;
         decInput.driverCommand = cmd;
         decInput.dt = dt;
 
-        cc::decision::DecisionOutput decOutput = cc::decision::processCommand(decInput, decConfig, decState);
+        cc::decision::DecisionOutput decOutput = cc::decision::processCommand(decInput, decConfig);
 
         // 如果决策输出要求进入/改变控制状态，进行同步
         if (decOutput.decision == cc::decision::RESULT_R4 || decOutput.decision == cc::decision::RESULT_R5) {
             controlActive = true;
             isNewSession = true; // 标志为新控制会话，重置 SPPVT 累加器
-        } else if (decOutput.decision == cc::decision::RESULT_R6 || decOutput.decision == cc::decision::RESULT_R7) {
+        } else if (decOutput.decision == cc::decision::RESULT_R6 || decOutput.decision == cc::decision::RESULT_R7 || decOutput.decision == cc::decision::RESULT_R8) {
             controlActive = false;
         }
 
@@ -154,7 +155,7 @@ int main() {
         // 6. 执行控制业务库处理
         cc::control::SppvtInput ctrlInput;
         ctrlInput.currentSpeed = currentSpeed;
-        ctrlInput.targetSpeed = decState.targetSpeed;
+        ctrlInput.targetSpeed = cc::decision::getDecisionState().targetSpeed;
         ctrlInput.currentAcceleration = currentAccel;
         ctrlInput.dt = dt;
         ctrlInput.pauseControl = !controlActive;
@@ -178,18 +179,18 @@ int main() {
         if (csvFile.is_open()) {
             csvFile << t << ","
                     << currentSpeed << ","
-                    << decState.targetSpeed << ","
+                    << cc::decision::getDecisionState().targetSpeed << ","
                     << ctrlState.virtualTargetSpeed << ","
                     << ctrlState.stepIndex << ","
                     << currentTorque << ","
                     << slopeAngle << ","
-                    << decState.currentState << "\n";
+                    << cc::decision::getDecisionState().currentState << "\n";
         }
 
         // 8. 每隔 1 秒打印一次数据日志
         if (i % 20 == 0) {
             std::string stateStr;
-            switch (decState.currentState) {
+            switch (cc::decision::getDecisionState().currentState) {
                 case cc::decision::SYS_STATE_S0: stateStr = "S0 适速在控"; break;
                 case cc::decision::SYS_STATE_S1: stateStr = "S1 高速在控"; break;
                 case cc::decision::SYS_STATE_S2: stateStr = "S2 适速有史待命"; break;
@@ -203,7 +204,7 @@ int main() {
             std::cout << std::left << std::fixed << std::setprecision(2)
                       << std::setw(8) << t
                       << std::setw(10) << currentSpeed
-                      << std::setw(12) << decState.targetSpeed
+                      << std::setw(12) << cc::decision::getDecisionState().targetSpeed
                       << std::setw(12) << ctrlState.virtualTargetSpeed
                       << std::setw(10) << ctrlState.stepIndex
                       << std::setw(10) << currentTorque
@@ -215,6 +216,7 @@ int main() {
     if (csvFile.is_open()) {
         csvFile.close();
     }
+
 
     std::cout << "---------------------------------------------------------------------------------------" << std::endl;
     

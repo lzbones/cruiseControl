@@ -74,6 +74,7 @@ void testDecisionProcess() {
     state.targetSpeed = 0.0;
     state.lastTargetSpeed = 0.0;
     state.lowSpeedTimer = 0.0;
+    setDecisionState(state);
 
     // 1. 在待命状态且无历史记录下，按增速键 I0 -> 触发 Set (R5) 并进入控制
     DecisionInput input1;
@@ -85,61 +86,85 @@ void testDecisionProcess() {
     input1.driverCommand = COMMAND_INC;
     input1.dt = 0.1;
 
-    DecisionOutput out1 = processCommand(input1, config, state);
+    DecisionOutput out1 = processCommand(input1, config);
     assert(out1.decision == RESULT_R5);
     assert(out1.updatedTargetSpeed == 15.0);
-    assert(state.targetSpeed == 15.0);
+    assert(getDecisionState().targetSpeed == 15.0);
     assert(out1.nextState == SYS_STATE_S0); // 预测下一状态为适速在控
 
     // 2. 正常适速在控状态 S0，无指令 -> 保持，目标车速不变
     input1.controlActive = true;
     input1.driverCommand = COMMAND_NONE;
-    DecisionOutput out2 = processCommand(input1, config, state);
+    DecisionOutput out2 = processCommand(input1, config);
     assert(out2.decision == RESULT_NONE);
     assert(out2.updatedTargetSpeed == 15.0);
 
     // 3. 正常适速在控状态 S0，按增速键 I0 -> 目标增量 (R1) 变 16.0
     input1.driverCommand = COMMAND_INC;
-    DecisionOutput out3 = processCommand(input1, config, state);
+    DecisionOutput out3 = processCommand(input1, config);
     assert(out3.decision == RESULT_R1);
     assert(out3.updatedTargetSpeed == 16.0);
-    assert(state.targetSpeed == 16.0);
+    assert(getDecisionState().targetSpeed == 16.0);
 
     // 4. 刹车踩下 -> 退出控制进入待命 (R6)，且当前在控所以保存历史车速 16.0
     input1.driverCommand = COMMAND_BRAKE;
-    DecisionOutput out4 = processCommand(input1, config, state);
+    DecisionOutput out4 = processCommand(input1, config);
     assert(out4.decision == RESULT_R6);
-    assert(state.lastTargetSpeed == 16.0); // 保存了历史值
+    assert(getDecisionState().lastTargetSpeed == 16.0); // 保存了历史值
 
     // 5. 处于适速无油有史待命，按下增速键 -> 恢复控制 (R4)，车速设为 16.0
     input1.controlActive = false;
     input1.hasHistoryTarget = true;
     input1.driverCommand = COMMAND_INC;
-    DecisionOutput out5 = processCommand(input1, config, state);
+    DecisionOutput out5 = processCommand(input1, config);
     assert(out5.decision == RESULT_R4);
     assert(out5.updatedTargetSpeed == 16.0);
-    assert(state.targetSpeed == 16.0);
+    assert(getDecisionState().targetSpeed == 16.0);
 
     // 6. 低速在控 S6 超时保护逻辑
-    state.currentState = SYS_STATE_S6;
-    state.lowSpeedTimer = 0.0;
+    DecisionState s6State;
+    s6State.currentState = SYS_STATE_S6;
+    s6State.targetSpeed = 16.0;
+    s6State.lastTargetSpeed = 16.0;
+    s6State.lowSpeedTimer = 0.0;
+    setDecisionState(s6State);
+
     input1.controlActive = true;
     input1.currentSpeed = 8.0; // 低于最小限速 10.0
     input1.driverCommand = COMMAND_NONE;
     
     // 运行 2.9 秒，仍不超时
     input1.dt = 2.9;
-    DecisionOutput out6 = processCommand(input1, config, state);
+    DecisionOutput out6 = processCommand(input1, config);
     assert(out6.decision == RESULT_NONE);
-    assert(state.lowSpeedTimer == 2.9);
+    assert(getDecisionState().lowSpeedTimer == 2.9);
 
     // 再运行 0.2 秒（累计 3.1 秒），触发主动退出报错 (R7)
     input1.dt = 0.2;
-    DecisionOutput out7 = processCommand(input1, config, state);
+    DecisionOutput out7 = processCommand(input1, config);
     assert(out7.decision == RESULT_R7); // 安全保护退出！
     assert(out7.nextState == SYS_STATE_S5); // 预测下一状态为非适速待命
 
+    // 7. 系统退出 (R8) 保护逻辑与历史值清零
+    DecisionState s0State;
+    s0State.currentState = SYS_STATE_S0;
+    s0State.targetSpeed = 15.0;
+    s0State.lastTargetSpeed = 15.0;
+    s0State.lowSpeedTimer = 0.0;
+    setDecisionState(s0State);
+
+    input1.controlActive = true;
+    input1.currentSpeed = 15.0;
+    input1.driverCommand = COMMAND_EXIT;
+    input1.dt = 0.1;
+
+    DecisionOutput out8 = processCommand(input1, config);
+    assert(out8.decision == RESULT_R8); // 触发系统退出！
+    assert(getDecisionState().lastTargetSpeed == 0.0); // 退出后历史车速必须清空！
+    assert(out8.nextState == SYS_STATE_S3); // 预测下一状态应为 S3 适速无史待命
+
     std::cout << "[PASS] 系统决策流程与安全超时逻辑测试成功！" << std::endl;
+
 }
 
 int main() {

@@ -7,11 +7,20 @@ namespace control {
 
 /**
  * @brief 根据会话状态和是否触发变目标计算下一时刻虚拟目标车速
- * @param config 控制配置
- * @param input 输入信号
- * @param state 当前控制器状态
- * @param isTriggered 是否触发变目标
- * @return 下一时刻的虚拟目标车速 (m/s)
+ * 
+ * 模块要素界定：
+ * - 输入 (Input)：
+ *   - input.isNewControlSession: 是否是新开启的控制会话
+ *   - input.targetSpeed: 最终设定的目标车速 V_t (m/s)
+ *   - input.currentSpeed: 当前车速 (m/s)
+ *   - isTriggered: 是否触发了目标更新
+ * - 输出 (Output)：
+ *   - 返回值: 下一时刻的虚拟目标车速 (m/s)
+ * - 状态 (State)：
+ *   - state.virtualTargetSpeed: 当前虚拟目标车速 (m/s) (跨周期持久化)
+ * - 参数 (Param)：
+ *   - config.rho: 惩罚系数
+ *   - config.maxOffset: 最大允许偏移量
  */
 double determineNextVirtualTarget(const SppvtConfig& config, const SppvtInput& input, const SppvtState& state, bool isTriggered);
 
